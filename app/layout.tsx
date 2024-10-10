@@ -1,5 +1,6 @@
 import "./globals.css";
-import Header from "./components/Header";
+import Navbar from "./components/Navbar";
+import SearchBar from "./components/SearchBar";
 import Footer from "./components/Footer";
 
 export const metadata = {
@@ -15,7 +16,8 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
-        <Header />
+        <Navbar />
+        <SearchBar />
         {children}
         <Footer />
       </body>
