@@ -1,29 +1,79 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import ThemeSwitcher from "./ThemeSwitcher";
 import SearchBar from "./SearchBar"; // Importando a SearchBar
+import {
+  Bars3Icon as MenuIcon,
+  XMarkIcon as XIcon,
+} from "@heroicons/react/24/outline"; // Ícones do Tailwind para o menu
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <nav className="bg-gray-800 p-4 text-white flex flex-wrap justify-between items-center md:flex-nowrap">
-      <div className="flex items-center space-x-4">
-        <h1 className="text-2xl font-bold">Meu Blog</h1>
-        <SearchBar /> {/* Adicionando a SearchBar */}
+    <nav className="bg-gray-800 p-4 text-white">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        {/* Logo e Search */}
+        <div className="flex items-center space-x-4">
+          <h1 className="text-2xl font-bold">Meu Blog</h1>
+          <SearchBar />
+        </div>
+        {/* Links e ThemeSwitcher para desktop */}
+        <div className="hidden md:flex items-center space-x-4">
+          <Link href="/" className="hover:text-gray-400">
+            Início
+          </Link>
+          <Link href="/sobre" className="hover:text-gray-400">
+            Sobre
+          </Link>
+          <Link href="/contato" className="hover:text-gray-400">
+            Contato
+          </Link>
+          <Link href="/faq" className="hover:text-gray-400">
+            FAQ
+          </Link>
+          <ThemeSwitcher />
+        </div>
+        {/* Menu Hamburger para Mobile */}
+        <div className="md:hidden">
+          <button
+            onClick={toggleMenu}
+            className="text-gray-400 hover:text-white focus:outline-none"
+          >
+            {isOpen ? (
+              <XIcon className="h-6 w-6" aria-hidden="true" />
+            ) : (
+              <MenuIcon className="h-6 w-6" aria-hidden="true" />
+            )}
+          </button>
+        </div>
       </div>
-      <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
-        <Link href="/" className="hover:text-gray-400">
-          Início
-        </Link>
-        <Link href="/sobre" className="hover:text-gray-400">
-          Sobre
-        </Link>
-        <Link href="/contato" className="hover:text-gray-400">
-          Contato
-        </Link>
-        <Link href="/faq" className="hover:text-gray-400">
-          FAQ
-        </Link>
-        <ThemeSwitcher />
-      </div>
+      {/* Dropdown Menu Mobile */}
+      {isOpen && (
+        <div className="md:hidden mt-4 space-y-2">
+          <Link href="/" className="block text-gray-400 hover:text-white">
+            Início
+          </Link>
+          <Link href="/sobre" className="block text-gray-400 hover:text-white">
+            Sobre
+          </Link>
+          <Link
+            href="/contato"
+            className="block text-gray-400 hover:text-white"
+          >
+            Contato
+          </Link>
+          <Link href="/faq" className="block text-gray-400 hover:text-white">
+            FAQ
+          </Link>
+          <ThemeSwitcher />
+        </div>
+      )}
     </nav>
   );
 }
