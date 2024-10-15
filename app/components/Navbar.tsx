@@ -3,17 +3,20 @@
 import { useState } from "react";
 import Link from "next/link";
 import ThemeSwitcher from "./ThemeSwitcher";
-import SearchBar from "./SearchBar"; // Importando a SearchBar
+import SearchBar from "./SearchBar";
+import { signOut, useSession } from "next-auth/react";
 import {
   Bars3Icon as MenuIcon,
   XMarkIcon as XIcon,
-} from "@heroicons/react/24/outline"; // Ícones do Tailwind para o menu
+} from "@heroicons/react/24/outline";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const { data: session } = useSession();
 
   return (
     <nav className="bg-gray-800 p-4 text-white">
@@ -37,6 +40,22 @@ export default function Navbar() {
           <Link href="/faq" className="hover:text-gray-400">
             FAQ
           </Link>
+          {session ? (
+            <>
+              <button onClick={() => signOut()} className="hover:text-gray-400">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/auth/login" className="hover:text-gray-400">
+                Login
+              </Link>
+              <Link href="/auth/register" className="hover:text-gray-400">
+                Registrar
+              </Link>
+            </>
+          )}
           <ThemeSwitcher />
         </div>
         {/* Menu Hamburger para Mobile */}
@@ -71,6 +90,31 @@ export default function Navbar() {
           <Link href="/faq" className="block text-gray-400 hover:text-white">
             FAQ
           </Link>
+          {session ? (
+            <>
+              <button
+                onClick={() => signOut()}
+                className="block text-gray-400 hover:text-white"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/auth/login"
+                className="block text-gray-400 hover:text-white"
+              >
+                Login
+              </Link>
+              <Link
+                href="/auth/register"
+                className="block text-gray-400 hover:text-white"
+              >
+                Registrar
+              </Link>
+            </>
+          )}
           <ThemeSwitcher />
         </div>
       )}
