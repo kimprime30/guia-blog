@@ -1,28 +1,29 @@
-// src/app/dashboard/page.tsx
-import { getServerSession } from "next-auth"; // Importando para obter a sessão do servidor
-import { authOptions } from "../api/auth/[...nextauth]/route"; // Importando as opções de autenticação
-import { redirect } from "next/navigation"; // Importando a função de redirecionamento
+import { getServerSession } from "next-auth"; // Obtenção da sessão do servidor
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // Importação das opções de autenticação
+import { redirect } from "next/navigation"; // Função de redirecionamento
 import React from "react";
 
 // Função do componente Server
 export default async function Dashboard() {
-  const session = await getServerSession(authOptions); // Obtendo a sessão
+  const session = await getServerSession(authOptions);
 
-  // Verifica se o usuário está autenticado
+  // Redirecionamento se o usuário não estiver autenticado
   if (!session) {
-    redirect("/auth/login"); // Redireciona para a página de login
+    return redirect("/auth/login");
   }
 
-  // Verifica se o usuário é administrador
+  // Redirecionamento se o usuário não for admin
   if (session.user.role !== "admin") {
-    redirect("/unauthorized"); // Redireciona para uma página de erro de permissão
+    return redirect("/unauthorized");
   }
 
   return (
-    <div>
-      <h1>Painel de Administrador</h1>
-      {/* Aqui você pode acessar os dados da sessão */}
-      <p>Bem-vindo, {session.user.name}</p>
+    <div className="flex">
+      <div className="flex-1 p-6">
+        <h1 className="text-3xl font-bold">Painel de Administrador</h1>
+        <p>Bem-vindo, {session.user.name}</p>
+        {/* Conteúdo adicional do dashboard */}
+      </div>
     </div>
   );
 }
