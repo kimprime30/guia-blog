@@ -16,7 +16,6 @@ const PostSchema: Schema = new Schema({
   categories: [{ type: String }],
 });
 
-// Evita erro ao recompilar o modelo no Next.js com HMR (Hot Module Replacement)
 const Post: Model<IPost> =
   mongoose.models.Post || mongoose.model<IPost>("Post", PostSchema);
 

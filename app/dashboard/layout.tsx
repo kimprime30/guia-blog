@@ -20,7 +20,6 @@ export default async function DashboardLayout({
         <Sidebar />
       </div>
       <div className="flex-1 p-6">{children}</div>
-      {/* Adiciona margem à esquerda */}
     </div>
   );
 }

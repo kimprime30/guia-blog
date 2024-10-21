@@ -42,14 +42,12 @@ const PostPage: React.FC<PostProps> = ({ post }) => {
 
   return (
     <div className="container mx-auto p-4">
-      {/* Exibição do conteúdo do post */}
       <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
       <p className="text-gray-600">
         {post.author} - {new Date(post.date).toLocaleDateString()}
       </p>
       <div className="mt-4">{post.content}</div>
 
-      {/* Exibição das categorias do post */}
       <div className="mt-2">
         {post.categories.map((category, idx) => (
           <span

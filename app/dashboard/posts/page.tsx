@@ -31,8 +31,6 @@ export default async function PostsPage() {
           <tbody>
             {posts.map((post) => (
               <tr key={post._id.toString()}>
-                {" "}
-                {/* Corrigido o uso do _id como string */}
                 <td className="border px-4 py-2">{post.title}</td>
                 <td className="border px-4 py-2">{post.author}</td>
                 <td className="border px-4 py-2">

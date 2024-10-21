@@ -14,7 +14,6 @@ const CommentSchema = new Schema<IComment>({
   createdAt: { type: Date, default: Date.now },
 });
 
-// Verifica se o modelo já foi registrado antes de criar um novo
 const Comment =
   mongoose.models.Comment || mongoose.model<IComment>("Comment", CommentSchema);
 

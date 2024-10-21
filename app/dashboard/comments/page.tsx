@@ -1,12 +1,10 @@
-import { getServerSession } from "next-auth"; // Obtenção da sessão
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // Opções de autenticação
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import mongoose from "mongoose";
 import Comment from "@/models/Comment";
-
 import React from "react";
 import { redirect } from "next/navigation";
 
-// Defina a interface para o comentário
 interface CommentType {
   _id: string;
   author: string;
@@ -23,13 +21,11 @@ export default async function CommentsPage() {
 
   await mongoose.connect(process.env.MONGODB_URI!);
 
-  // Obter apenas os campos relevantes e garantir que estejam tipados
   const comments = await Comment.find(
     {},
     { _id: 1, author: 1, content: 1, date: 1, approved: 1 }
   ).lean();
 
-  // Tipar explicitamente os comentários como `CommentType[]`
   const typedComments: CommentType[] = comments as CommentType[];
 
   return (

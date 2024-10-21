@@ -1,12 +1,10 @@
-import { getServerSession } from "next-auth"; // Obtenção da sessão
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // Opções de autenticação
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import mongoose from "mongoose";
 import User from "@/models/User";
-
 import React from "react";
 import { redirect } from "next/navigation";
 
-// Defina a interface para os dados do usuário
 interface UserType {
   _id: string;
   name: string;
@@ -22,13 +20,10 @@ export default async function UsersPage() {
 
   await mongoose.connect(process.env.MONGODB_URI!);
 
-  // Usando o método projection do Mongoose para garantir os campos corretos
   const users = await User.find(
     {},
     { _id: 1, name: 1, email: 1, role: 1 }
   ).lean();
-
-  // Agora tipamos o retorno explicitamente como `UserType[]`
   const typedUsers: UserType[] = users as UserType[];
 
   return (
