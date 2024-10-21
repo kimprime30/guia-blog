@@ -1,5 +1,3 @@
-// app/search/page.tsx
-
 import mongoose from "mongoose";
 import Post from "@/models/Post";
 

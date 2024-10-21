@@ -1,12 +1,31 @@
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 export default function SearchBar() {
+  const [query, setQuery] = useState("");
+  const router = useRouter();
+
+  const handleSearch = () => {
+    if (query) {
+      // Redireciona para a página de resultados da busca
+      router.push(`/search?query=${query}`);
+    }
+  };
+
   return (
-    <div className=" flex flex-col sm:flex-row items-center p-2">
+    <div className="flex items-center space-x-2">
       <input
         type="text"
-        placeholder="Pesquisar..."
-        className=" text-gray-900 border border-gray-300 dark:border-gray-700 rounded p-2 dark:bg-gray-800 dark:text-white w-full sm:w-auto"
+        placeholder="Buscar..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        className="p-2 rounded"
       />
-      <button className="mt-2 sm:mt-0 sm:ml-2 bg-blue-500 text-white p-2 rounded hover:bg-blue-600 w-full sm:w-auto">
+      <button
+        onClick={handleSearch}
+        className="p-2 bg-blue-500 text-white rounded"
+      >
         Buscar
       </button>
     </div>
