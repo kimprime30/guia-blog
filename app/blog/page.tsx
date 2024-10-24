@@ -42,10 +42,14 @@ const BlogPage = () => {
   }) => {
     let filteredPosts = posts;
 
+    // Filtragem de categorias sem diferenciar maiúsculas e minúsculas
     if (filterCriteria.categories.length > 0) {
       filteredPosts = filteredPosts.filter((post) =>
         post.categories.some((category) =>
-          filterCriteria.categories.includes(category)
+          filterCriteria.categories.some(
+            (selectedCategory) =>
+              category.toLowerCase() === selectedCategory.toLowerCase()
+          )
         )
       );
     }
@@ -75,7 +79,7 @@ const BlogPage = () => {
             {post.categories.map((category, idx) => (
               <span
                 key={idx}
-                className="text-sm bg-gray-200 rounded-full px-2 py-1 mr-2"
+                className="text-sm bg-gray-200 dark:bg-gray-700 rounded-full px-2 py-1 mr-2"
               >
                 {category}
               </span>
